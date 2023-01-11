@@ -202,7 +202,7 @@ def protocolo_3(l, cant_iter, kappa_A, y_A, kappa_B, y_B, kappa_C, y_C, kappa_D,
 
 #Graficas
 def graficas(variables, y_sto, W_sto, Q_sto, num):
-    titulos = ["Compresión isotérmica", "Compresión adiabática", "Expansión isotérmica", "Expansión adiabática"]
+    titulos = ["Expansión isotérmica", "Expansión adiabática", "Compresión isotérmica", "Compresión adiabática"]
 
     for i in range(4):
         kappa_proc = variables[i][0]
@@ -312,9 +312,10 @@ def graficas(variables, y_sto, W_sto, Q_sto, num):
     plt.savefig("P{}-QCiclo.png".format(num))
     plt.close()
 
-    iiQ_pos = (Q_ciclo_sto != 0)
+    Q_eff = Q_ciclo_sto - Q_sto[:, 2]
+    iiQ_pos = (Q_eff != 0)
 
-    eff = -1*W_ciclo_sto[iiQ_pos]/Q_ciclo_sto[iiQ_pos]
+    eff = -1*W_ciclo_sto[iiQ_pos]/Q_eff[iiQ_pos]
  
     lim = 2
     ii_eff_lim = (np.abs(eff) <= lim)
